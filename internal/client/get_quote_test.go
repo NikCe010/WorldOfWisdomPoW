@@ -18,7 +18,7 @@ func TestClient_GetQuote(t *testing.T) {
 
 	mockConn := mock_client.NewMockConn(ctrl)
 	mockConn.EXPECT().
-		Send(ctx, gomock.Eq(proto.NewInitializeRequest())).
+		Send(ctx, gomock.Eq(proto.NewInitiateRequest())).
 		Return(nil)
 	mockConn.EXPECT().
 		Send(ctx, gomock.Eq(proto.NewSolvedChallengeRequest([]byte{123, 12, 0, 0, 0, 0, 0, 0}))).

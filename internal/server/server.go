@@ -4,6 +4,7 @@ import (
 	"context"
 	"net"
 	"os"
+	"sync"
 
 	"worldofwisdom.com/m/internal/handlers"
 	"worldofwisdom.com/m/internal/tcp"
@@ -27,6 +28,8 @@ type Server struct {
 	listener net.Listener
 	log      Logger
 	timeout  int
+	wg       sync.WaitGroup
+	quit     chan interface{}
 }
 
 // NewServer - initialize new tcp server.
@@ -44,5 +47,14 @@ func NewServer(ctx context.Context, logger Logger, params *tcp.Params) *Server {
 		listener: listener,
 		log:      logger,
 		timeout:  params.GetTimeout(),
+		wg:       sync.WaitGroup{},
+		quit:     make(chan interface{}),
 	}
+}
+
+// Stop - method of gracefully shutting down the server
+func (s *Server) Stop() {
+	close(s.quit)
+	s.listener.Close()
+	s.wg.Wait()
 }

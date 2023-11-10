@@ -13,7 +13,7 @@ import (
 // Has 5 stages: Initiate communication, read challenge, solve challenge, send nonce and read quote.
 func (c *Client) GetQuote(ctx context.Context) ([]byte, error) {
 	c.log.InfoContext(ctx, "Stage 1: Initiate communication")
-	err := c.conn.Send(ctx, proto.NewInitializeRequest())
+	err := c.conn.Send(ctx, proto.NewInitiateRequest())
 	if err != nil {
 		c.log.ErrorContext(ctx, "Quote request error", err)
 		return nil, err

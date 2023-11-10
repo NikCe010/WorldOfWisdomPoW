@@ -7,10 +7,10 @@ type SendRequestV1 struct {
 	Content    []byte
 }
 
-// NewInitializeRequest - new request with Initialize Operation and empty payload
-func NewInitializeRequest() *SendRequestV1 {
+// NewInitiateRequest - new request with Initiate Operation and empty payload
+func NewInitiateRequest() *SendRequestV1 {
 	return &SendRequestV1{
-		Operation:  Initialize,
+		Operation:  Initiate,
 		Complexity: 0,
 		Content:    nil,
 	}

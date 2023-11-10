@@ -21,7 +21,7 @@ func (c *Connection) Read(ctx context.Context) (*proto.Message, error) {
 	}
 
 	operation := proto.Operation(buff[0])
-	if operation == proto.Initialize { // initialize does not have any payload
+	if operation == proto.Initiate { // initialize does not have any payload
 		return &proto.Message{
 			Operation: operation,
 		}, nil

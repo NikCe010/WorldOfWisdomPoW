@@ -16,7 +16,7 @@ func (h *QuotesHandler) Handle(ctx context.Context, conn Conn) {
 		h.log.ErrorContext(ctx, "read request error", err)
 		return
 	}
-	if initResp.Operation != proto.Initialize {
+	if initResp.Operation != proto.Initiate {
 		h.log.ErrorContext(ctx, "invalid protocol operation")
 		return
 	}

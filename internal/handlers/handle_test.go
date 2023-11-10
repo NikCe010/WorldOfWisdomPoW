@@ -25,7 +25,7 @@ func TestQuotesHandler_Handle(t *testing.T) {
 		EXPECT().
 		Read(ctx).
 		Return(&proto.Message{
-			Operation: proto.Initialize,
+			Operation: proto.Initiate,
 		}, nil)
 	mockConn.
 		EXPECT().

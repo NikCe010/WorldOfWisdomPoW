@@ -24,12 +24,12 @@ func NewParams(timeout int) *Params {
 		port:    port,
 		timeout: timeout,
 	}
-	params.SetDefault()
+	params.SetDefaultIfEmpty()
 	return params
 }
 
-// SetDefault ...
-func (p *Params) SetDefault() {
+// SetDefaultIfEmpty ...
+func (p *Params) SetDefaultIfEmpty() {
 	if p.host == "" {
 		p.host = defaultHost
 	}
