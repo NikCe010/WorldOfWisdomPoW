@@ -4,7 +4,7 @@ import (
 	"context"
 	"math"
 
-	"pow.com/m/cmd/pow/internal/errors"
+	"worldofwisdom.com/m/internal/errors"
 )
 
 // SolveChallenge - method used to solve challenge

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os"
 
-	"pow.com/m/cmd/pow/internal/tcp/proto"
+	"worldofwisdom.com/m/internal/tcp/proto"
 )
 
 // Send - method for sending data throw protocol.

@@ -1,58 +1,52 @@
 package tcp
 
+import "os"
+
+var (
+	defaultHost    = "127.0.0.1"
+	defaultPort    = "8000"
+	defaultTimeout = 150
+)
+
 // Params ...
 type Params struct {
-	host    *string
-	port    *string
-	timeout *int
+	host    string
+	port    string
+	timeout int
 }
 
 // NewParams ...
-func NewParams() *Params {
-	return &Params{}
-}
-
-// SetTimeout ...
-func (p *Params) SetTimeout(timeout int) *Params {
-	p.timeout = &timeout
-	return p
-}
-
-// SetPort ...
-func (p *Params) SetPort(port string) *Params {
-	p.port = &port
-	return p
-}
-
-// SetHost ...
-func (p *Params) SetHost(host string) *Params {
-	p.host = &host
-	return p
+func NewParams(timeout int) *Params {
+	host := os.Getenv("SERVER_HOST")
+	port := os.Getenv("SERVER_PORT")
+	params := &Params{
+		host:    host,
+		port:    port,
+		timeout: timeout,
+	}
+	params.SetDefault()
+	return params
 }
 
 // SetDefault ...
-func (p *Params) SetDefault(host string, port string, timeout int) *Params {
-	if p == nil {
-		p = NewParams()
+func (p *Params) SetDefault() {
+	if p.host == "" {
+		p.host = defaultHost
 	}
-	if p.host == nil {
-		p.host = &host
+	if p.port == "" {
+		p.port = defaultPort
 	}
-	if p.port == nil {
-		p.port = &port
+	if p.timeout == 0 {
+		p.timeout = defaultTimeout
 	}
-	if p.timeout == nil {
-		p.timeout = &timeout
-	}
-	return p
 }
 
 // GetAddress ...
 func (p *Params) GetAddress() string {
-	return *p.host + ":" + *p.port
+	return p.host + ":" + p.port
 }
 
 // GetTimeout ...
 func (p *Params) GetTimeout() int {
-	return *p.timeout
+	return p.timeout
 }

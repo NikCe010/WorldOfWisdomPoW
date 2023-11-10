@@ -5,14 +5,8 @@ import (
 	"net"
 	"os"
 
-	"pow.com/m/cmd/pow/internal/tcp"
-	"pow.com/m/cmd/pow/internal/tcp/proto"
-)
-
-const (
-	defaultHost    = "127.0.0.1"
-	defaultPort    = "8000"
-	defaultTimeout = 150
+	"worldofwisdom.com/m/internal/handlers"
+	"worldofwisdom.com/m/internal/tcp"
 )
 
 // Logger ...
@@ -23,16 +17,9 @@ type Logger interface {
 	InfoContext(ctx context.Context, msg string, args ...any)
 }
 
-// Conn ...
-type Conn interface {
-	Send(ctx context.Context, request *proto.SendRequestV1) error
-	Read(ctx context.Context) (*proto.Message, error)
-	Close(ctx context.Context)
-}
-
 // Handler ...
 type Handler interface {
-	Handle(ctx context.Context, conn Conn)
+	Handle(ctx context.Context, conn handlers.Conn)
 }
 
 // Server ...
@@ -46,8 +33,6 @@ type Server struct {
 //
 // 1 argument have to implement Logger, 2 arg = Params specify host, port and timeout. By default 127.0.0.1:8000 and 150 milliseconds
 func NewServer(ctx context.Context, logger Logger, params *tcp.Params) *Server {
-	params = params.SetDefault(defaultHost, defaultPort, defaultTimeout)
-
 	listener, err := net.Listen("tcp", params.GetAddress())
 	if err != nil {
 		logger.ErrorContext(ctx, "error listening", err)

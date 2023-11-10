@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"pow.com/m/cmd/pow/internal/tcp"
+	"worldofwisdom.com/m/internal/tcp"
 )
 
 // Serve - method to serve incoming request using Handler

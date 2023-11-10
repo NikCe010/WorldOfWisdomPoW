@@ -3,12 +3,11 @@ package handlers
 import (
 	"context"
 
-	"pow.com/m/cmd/pow/internal/server"
-	"pow.com/m/cmd/pow/internal/tcp/proto"
+	"worldofwisdom.com/m/internal/tcp/proto"
 )
 
 // Handle ...
-func (h *QuotesHandler) Handle(ctx context.Context, conn server.Conn) {
+func (h *QuotesHandler) Handle(ctx context.Context, conn Conn) {
 	defer conn.Close(ctx)
 
 	h.log.InfoContext(ctx, "Stage 1: Read init request")

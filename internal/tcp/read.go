@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"pow.com/m/cmd/pow/internal/tcp/proto"
+	"worldofwisdom.com/m/internal/tcp/proto"
 )
 
 // Read - method for reading data with Message.

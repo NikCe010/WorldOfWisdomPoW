@@ -5,11 +5,11 @@ import (
 	"log/slog"
 	"os"
 
-	"pow.com/m/cmd/pow/internal/handlers"
-	"pow.com/m/cmd/pow/internal/server"
-	"pow.com/m/cmd/pow/internal/services/proof_of_work"
-	"pow.com/m/cmd/pow/internal/services/quotes_service"
-	"pow.com/m/cmd/pow/internal/tcp"
+	"worldofwisdom.com/m/internal/handlers"
+	"worldofwisdom.com/m/internal/server"
+	"worldofwisdom.com/m/internal/services/proof_of_work"
+	"worldofwisdom.com/m/internal/services/quotes_service"
+	"worldofwisdom.com/m/internal/tcp"
 )
 
 func main() {
@@ -20,10 +20,9 @@ func main() {
 	quotesService := quotes_service.New()
 	generator := proof_of_work.NewGenerator(2)
 
+	params := tcp.NewParams(200)
 	// Init server
-	tcpServer := server.NewServer(ctx, log,
-		tcp.NewParams().
-			SetTimeout(200))
+	tcpServer := server.NewServer(ctx, log, params)
 
 	// Init handlers
 	quotesHandler := handlers.NewQuotesHandler(log, quotesService, generator)

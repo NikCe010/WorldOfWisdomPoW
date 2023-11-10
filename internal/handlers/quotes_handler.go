@@ -1,6 +1,12 @@
+//go:generate  mockgen -source=quotes_handler.go -destination=mocks/mocks.go
+
 package handlers
 
-import "context"
+import (
+	"context"
+
+	"worldofwisdom.com/m/internal/tcp/proto"
+)
 
 // Logger ...
 type Logger interface {
@@ -13,6 +19,13 @@ type Logger interface {
 // QuotesStorage ...
 type QuotesStorage interface {
 	GetRandomQuote() string
+}
+
+// Conn ...
+type Conn interface {
+	Send(ctx context.Context, request *proto.SendRequestV1) error
+	Read(ctx context.Context) (*proto.Message, error)
+	Close(ctx context.Context)
 }
 
 // POWGenerator ...

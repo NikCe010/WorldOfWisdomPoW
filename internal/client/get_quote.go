@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"pow.com/m/cmd/pow/internal/tcp"
-	"pow.com/m/cmd/pow/internal/tcp/proto"
+	"worldofwisdom.com/m/internal/tcp"
+	"worldofwisdom.com/m/internal/tcp/proto"
 )
 
 // GetQuote - method to request random "World Of Wisdom" quote from server
@@ -49,7 +49,7 @@ func (c *Client) GetQuote(ctx context.Context) ([]byte, error) {
 	c.log.InfoContext(ctx, "Stage 5: Read quote")
 	quoteResp, err := c.conn.Read(ctx)
 	if err != nil {
-		c.log.InfoContext(ctx, "Read quote error", err)
+		c.log.ErrorContext(ctx, "Read quote error", err)
 		return nil, err
 	}
 	if quoteResp.Operation != proto.SendData {

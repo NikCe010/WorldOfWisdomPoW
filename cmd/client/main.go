@@ -6,8 +6,9 @@ import (
 	"os"
 	"time"
 
-	"pow.com/m/cmd/pow/internal/client"
-	"pow.com/m/cmd/pow/internal/services/proof_of_work"
+	"worldofwisdom.com/m/internal/client"
+	"worldofwisdom.com/m/internal/services/proof_of_work"
+	"worldofwisdom.com/m/internal/tcp"
 )
 
 func main() {
@@ -15,7 +16,9 @@ func main() {
 	log := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
 	solver := proof_of_work.NewSolver()
-	client := client.NewClient(ctx, solver, log, nil)
+
+	params := tcp.NewParams(150)
+	client := client.NewClient(ctx, solver, log, params)
 
 	defer client.Close(ctx)
 	start := time.Now()
@@ -25,6 +28,6 @@ func main() {
 		return
 	}
 
-	log.Debug("Working time", time.Now().Sub(start).String())
+	log.Info("Working time", time.Now().Sub(start).String())
 	log.Info(string(quote))
 }

@@ -1,3 +1,4 @@
+//go:generate  mockgen -source=client.go -destination=mocks/mocks.go
 package client
 
 import (
@@ -5,15 +6,9 @@ import (
 	"net"
 	"os"
 
-	"pow.com/m/cmd/pow/internal/services/proof_of_work"
-	"pow.com/m/cmd/pow/internal/tcp"
-	"pow.com/m/cmd/pow/internal/tcp/proto"
-)
-
-const (
-	defaultHost    = "127.0.0.1"
-	defaultPort    = "8000"
-	defaultTimeout = 150
+	"worldofwisdom.com/m/internal/services/proof_of_work"
+	"worldofwisdom.com/m/internal/tcp"
+	"worldofwisdom.com/m/internal/tcp/proto"
 )
 
 // Logger ...
@@ -48,8 +43,6 @@ type Client struct {
 //
 // 1 argument have to implement Logger, 2 arg = specific host, 3 = specific port, 4 = timeout. By default 127.0.0.1:8000 and 150 milliseconds
 func NewClient(ctx context.Context, solver Solver, logger Logger, params *tcp.Params) *Client {
-	params = params.SetDefault(defaultHost, defaultPort, defaultTimeout)
-
 	conn, err := net.Dial("tcp", params.GetAddress())
 	if err != nil {
 		logger.ErrorContext(ctx, "error listening", err)
