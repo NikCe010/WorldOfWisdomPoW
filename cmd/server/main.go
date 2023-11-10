@@ -25,7 +25,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	params := tcp.NewParams(200)
+	params := tcp.NewParams(150)
 	tcpServer := server.NewServer(ctx, log, params)
 	defer tcpServer.Stop()
 
