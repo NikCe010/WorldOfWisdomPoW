@@ -1,1 +1,1 @@
-# WorldOfWisdomPoW
+# WorldOfWisdom
